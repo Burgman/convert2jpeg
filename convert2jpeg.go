@@ -26,8 +26,9 @@ func convertToJPEG(w io.Writer, r io.Reader) (error, bool) {
 	for x := 0; x < width; x++ {
 		for y := 0; y < height; y++ {
 			_, _, _, a := img.At(x, y).RGBA()
-			if a == 0 {
+			if a != 65535 {
 				hasTransparentBg = true
+				break
 			}
 		}
 	}
@@ -85,7 +86,7 @@ func renameFile(path string) string {
 }
 
 func main() {
-	root := "Resources"
+	root := "restest"
 	err := filepath.Walk(root, visit)
 	fmt.Printf("filepath.Walk() returned %v\n", err)
 }
