@@ -37,7 +37,10 @@ func convertToJPEG(w io.Writer, r io.Reader) (error, bool) {
 		fmt.Println("Contains transparent bg")
 		return nil, false
 	} else {
-		return jpeg.Encode(w, img, nil), true
+		option := &jpeg.Options{
+			Quality: 65,
+		}
+		return jpeg.Encode(w, img, option), true
 	}
 
 }
